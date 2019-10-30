@@ -1,5 +1,5 @@
 import "./App.css";
-import React, {useState} from "react";
+import React from "react";
 import { useLocalStorage } from "./utils/input";
 import { useDogImages } from "./utils/api";
 
@@ -8,7 +8,7 @@ function App(props) {
   const [breed, setBreed] = useLocalStorage("breed", "husky");
   const [count, setCount] = useLocalStorage("count", 1);
   // we don't need setImages anymore, since we never call it
-  const [images] = useState([]);
+  const [images, setImages] = useDogImages(breed, count);
 
   return (
     <>
@@ -33,6 +33,7 @@ function App(props) {
           <img key={index} src={image} alt="Dog" />
         ))}
       </div>
+      <button onClick={() => setImages([])}>CLear Images</button>
     </>
   );
 }
